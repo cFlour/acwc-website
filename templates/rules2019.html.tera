@@ -162,6 +162,7 @@
       <li>Players may begin negotiating a playing start time as soon as their
         next pairing is known. When a time is agreed on, it must be shared in the
         pairings forum post.</li>
+      <li>To prevent (most) timezone confusion, players must communicate their times in UTC.</li>
       <li>Each player is responsible to offer at least 3 separate times for the
         match, by Wednesday at the latest, unless an offer has been accepted before
         that number is reached.</li>
