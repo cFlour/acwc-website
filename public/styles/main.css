@@ -1,0 +1,22 @@
+body {
+  font-family: Georgia;
+}
+
+.trophy {
+  height: 10vw;
+}
+
+.banner {
+  margin-top: 3vw;
+  margin-bottom: 3vw;
+}
+
+.title:before {
+  content: 'Antichess World Championship';
+}
+
+@media screen and (max-width:460px) {
+  .title:before {
+    content: 'Antichess WC';
+  }
+}

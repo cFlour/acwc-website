@@ -1,6 +1,10 @@
+{% extends "base" %}
+
+{% block title %} Rules (2019) {% endblock title %}
+
 {% block content %}
 
-<h1>ACWC Rules (2019 edition)</h1>
+<h2>ACWC Rules (2019 edition)</h2>
 <ol type="I">
   <li>Organization
     <ol type="A">
