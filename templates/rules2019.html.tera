@@ -194,6 +194,9 @@
         The appearing player has the choice to reschedule or claim a win. If the
         appearing player does not claim a win and rescheduling fails, the match
         will be forfeited in favor of the appearing player.</li>
+      <li>If a player leaves the match while it's still ongoing, they get 10 minutes to come back
+        and this counts as their break. If they don't come back in time, their opponent gets the option
+        to claim a win.</li>
       <li>If a player gets forfeited in two different matches, they get disqualified from the ACWC.</li>
       <li>After a match, either player must post the results in the Pairings forum post.</li>
     </ol>
