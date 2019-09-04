@@ -1,0 +1,10 @@
+{% extends "base" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<h2 align="center">Registrations are closed!</h2>
+<p align="center">
+  Information about the pairings follows soon, here and in the forum.
+</p>
+{% endblock content %}
