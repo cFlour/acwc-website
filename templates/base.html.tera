@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock title %} | Antichess World Championship</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {% block add_to_head %}{% endblock add_to_head %}
+  </head>
+  <body>
+  {% block content %}{% endblock content %}
+  </body>
+</html>

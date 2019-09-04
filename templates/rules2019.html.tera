@@ -1,0 +1,244 @@
+{% block content %}
+
+<h1>ACWC Rules (2019 edition)</h1>
+<ol type="I">
+  <li>Organization
+    <ol type="A">
+      <li>The ACWC will be played on <a href="https://lichess.org/">Lichess</a>.</li>
+      <li>The 2019 Tournament Director (TD) is <a href="https://lichess.org/@/ProgramFOX">ProgramFOX</a>.</li>
+      <li>In case of disputes between participants, the TD should be contacted, who will make the final call.</li>
+      <li>The TD will not participate in the ACWC.</li>
+    </ol>
+  </li>
+  <li>Player eligibility
+    <ol type="A">
+      <li>Entry requirements
+        <ol type="1">
+          <li>Your Lichess account must be created prior to March 1, 2019, 00:00 UTC.</li>
+          <li>
+            You must have played at least 100 rated Antichess games on Lichess prior to
+            September 1, 2019, 00:00 UTC.
+          </li>
+        </ol>
+      </li>
+      <li>Exceptions to these requirements can be made at TD discretion.</li>
+      <li>Disqualifying elements
+        <ol type="1">
+          <li>You have an account that was marked as engine or booster.</li>
+          <li>
+            You have a "Cheat detected" game (that's not Correspondence) on any of your
+            accounts.
+          </li>
+          <li>
+            You already entered the ACWC 2019 with another account. Your already-entered
+            account will also be disqualified if you try to join with two accounts.
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>Format
+    <ol type="A">
+      <li>All games are rated and have 2+5 as time control.</li>
+      <li>
+        The tournament will consist of three stages: Qualification (Swiss),
+        Candidates (round-robin), Final (1v1).
+      </li>
+      <li>
+        <a href="https://lichess.org/@/arimakat">arimakat</a>, as 2018 winner,
+        automatically proceeds to the final.
+      </li>
+      <li>
+        <a href="https://lichess.org/@/Ogul1">Ogul1</a>, as 2018 runner-up,
+        automatically proceeds to the Candidates.
+      </li>
+      <li>Qualification
+        <ol type="1">
+          <li>
+            A Swiss tournament (with a pairing system based on the Monrad system)
+            will be played between all entrants (except for arimakat
+            and Ogul1). Each participant plays a 10-game match per round.
+            A won match gives 1 point, a tie (5-5) gives 0.5 points,
+            a lost match gives 0 points. Once either player reaches 5.5 in a match, the
+            players are allowed to stop there.
+          </li>
+          <li>The Swiss will consist of at least 5 rounds. If there are more
+            than 32 participants, the number of rounds will be the base-2 logarithm of
+            the number of participants, rounded up. (In less mathematical terms, that
+            means that there will be 6 rounds for 33-64 players, 7 rounds for 65-128
+            players, etc.)
+          </li>
+          <li>
+            The three players that scored most points in the Swiss, will proceed to the
+            Candidates. In case of a tie, the sum of all opponents' seeds is used as
+            tiebreaker.
+          </li>
+          <li>Pairing details
+            <ol type="i">
+              <li>
+                After each round, the players are ranked based on score, then
+                the average of their opponents' seeding ratings, then their own seeding raing.
+              </li>
+              <li>
+                If there is an odd number of players, the lowest-ranked player (who has not received a bye yet)
+                receives a bye, meaning they don't have to play that round and are assigned a win. This win does
+                not count towards the average of their opponents' seeding ratings. If a player has one win because
+                of a bye, the average opponent seeding rating is considered to be zero.
+              </li>
+              <li>
+                The highest-ranked unpaired player gets paired with the player closest to them (in ranking)
+                that they have not played yet. This process gets repeated until all players are paired.
+                <p>
+                  <small>
+                    I'm not sure if this prevents the last two players to face each other more than once.
+                    But that won't affect the results and the main purpose is to keep the pairing system simple, so everyone can independently verify
+                    the pairings without requiring specialized software, which is most often paid anyway.
+                  </small>
+                </p>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      <li>Candidates
+        <ol type="1">
+          <li>
+            A round-robin tournament between the four candidates is played. Each Candidate
+            plays a 10-game match per round. A won match gives 1 point, a tie (5-5) gives 0.5 points,
+            a lost match gives 0 points.
+          </li>
+          <li>
+            Players are not allowed to stop the match once either player reaches 5.5,
+            because the exact scores may need to be used as tiebreaker.
+          </li>
+          <li>The Candidate with most points will face arimakat in the Final as Challenger.
+            In case of a tie, the sub-scores per match get added up and used as tiebreaker.</li>
+        </ol>
+      </li>
+      <li>Final
+        <ol type="1">
+          <li>A 12-game match between arimakat and the Candidates winner will be played.</li>
+          <li>To win the match, the leading player must be ahead by two points.</li>
+          <li>If neither player achieves this, the match gets extended by two games.</li>
+          <li>If, after 24 games, there is still no winner decided, the "must be ahead by
+            two points" restriction gets dropped.</li>
+          <li>If the score is equal still, extensions proceed but with 2+0 as time
+            control instead of 2+5, until the tie is broken (after an even number of games).</li>
+          <li>If there is still no winner after 30 games total, an Armageddon game will be played,
+            in the same way as the Atomic World Championship employs it as a tiebreaker.
+            <ol type="i">
+              <li>Black gets 3 minutes on the clock and draw odds (i.e. if draw, black wins).</li>
+              <li>Both players make a time offer for White. The lowest offer plays White.</li>
+              <li>In case of identical offers, the higher seed plays White. There is no increment.</li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+  <li>Timeline
+    <ol type="A">
+      <li>There is one week per Qualification round (so the total number of weeks depends on the number of rounds).</li>
+      <li>There is one week per round-robin round (so 3 weeks total).</li>
+      <li>The finals are played as the finalists see fit.</li>
+      <li>
+        The pairings for the first Qualification round will be published before
+        Monday 30th September 00:00 UTC.</li>
+      <li>The pairings for all subsequent rounds will
+        be published on subsequent Mondays as soon as possible (or earlier if all players finish their matches earlier).</li>
+      <li>All matches of a round must be completed by Sunday 23:59:59 UTC.</li>
+    </ol>
+  <li>Match negotiations
+    <p>Taken and slightly modified from the
+      <a href="https://chronatog.com/2019/07/the-2019-atomic-world-championships/">
+        2019 Atomic World Championship</a>.
+    </p>
+    <ol type="A">
+      <li>Players may begin negotiating a playing start time as soon as their
+        next pairing is known. When a time is agreed on, it must be shared in the
+        pairings forum post.</li>
+      <li>Each player is responsible to offer at least 3 separate times for the
+        match, by Wednesday at the latest, unless an offer has been accepted before
+        that number is reached.</li>
+      <li>The 3 offered times should be no closer than 3 hours to each other and no
+        more than 2 on a single date.</li>
+      <li>If 3 offers are not made in time the player at fault must accept a time
+        chosen by the opponent.</li>
+      <li>If both players fail to make 3 offers by the deadline then a match arbiter
+        will assign a time.</li>
+      <li>A player should respond to an offer by accepting or making a different
+        offer, preferably within 24 hours.</li>
+      <li>If both players make 3 offers but no agreement is made before the weekend
+        then a match arbiter will determine if fault lies with a particular player.</li>
+      <li>If a player is at fault then their opponent will decide the match time,
+        if no player is at fault the match arbiter will assign a match time.</li>
+    </ol>
+  </li>
+  <li>Match rules (applying at all stages)
+    <ol type="A">
+      <li>Each player has the right to call a break once during the match, between two games.
+        The break lasts at most 10 minutes.</li>
+      <li>If no break is called, a rematch must be offered and accepted immediately.
+        Repeated failure in doing so leads to a forfeit.</li>
+      <li>In the Final: the same break rules apply, but because the Final can take much longer
+        than a standard match, the finalists are allowed to split their match over several days.</li>
+      <li>If a player is offline at the time of the match, they have a 10 minute grace period
+        to come online and start the game. The appearing player has to message the TD that their
+        opponent did not show up and again 10 minutes afterwards if the opponent still didn't show up.
+        The appearing player has the choice to reschedule or claim a win. If the
+        appearing player does not claim a win and rescheduling fails, the match
+        will be forfeited in favor of the appearing player.</li>
+      <li>If a player gets forfeited in two different matches, they get disqualified from the ACWC.</li>
+      <li>After a match, either player must post the results in the Pairings forum post.</li>
+    </ol>
+  </li>
+  <li>Reporting cheats
+    <ol type="A">
+      <li>
+        Accusations of cheating must be made privately to the TD. Any accusation in
+        public will result in a disqualification of the accuser, regardless of whether
+        the accusation was correct or not.
+      </li>
+      <li>
+        If an accused player is found guilty, they will be disqualified from the
+        tournament.
+      </li>
+      <li>
+        If a player gets marked as engine/booster on Lichess during the ACWC but for
+        non-ACWC games, they also get disqualified from the ACWC.
+      </li>
+    </ol>
+  </li>
+  <li>Disqualification and withdrawals
+    <ol type="A">
+      <li>Qualifications
+        <ol type="1">
+          <li>
+            If a player withdraws or gets disqualified from the Qualification, they will
+            not be included in later pairings. If they still have an uncompleted pairing,
+            their opponent wins this game.
+          </li>
+          <li>
+            If the disqualification happens on grounds of an engine mark (not booster
+            mark), all of their finished games in the Qualification will be adjudicated
+            in favor of their opponents.
+          </li>
+        </ol>
+      </li>
+      <li>Candidates: if a player withdraws or gets disqualified from the Candidates, all of their
+        games will be disregarded.
+      </li>
+      <li>Finals<ol type="1">
+          <li>
+            If arimakat withdraws or gets disqualified, the Challenger plays the Candidates runner-up in the Final.
+          </li>
+          <li>
+            If the Challenger withdraws or gets disqualified, the Candidates runner-up
+            becomes the new Challenger.
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </li>
+</ol>
+
+{% endblock content %}
