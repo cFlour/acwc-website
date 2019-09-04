@@ -24,10 +24,11 @@
       <li>Exceptions to these requirements can be made at TD discretion.</li>
       <li>Disqualifying elements
         <ol type="1">
-          <li>You have an account that was marked as engine or booster.</li>
+          <li>You have an account that was marked as engine or booster after September 1, 2017.</li>
+          <li>Accounts that you own that got marked before September 1, 2017, will be reviewed on a case-by-case basis.
+            If the TD is insufficiently certain that you reformed, you can be denied entry.</li>
           <li>
-            You have a "Cheat detected" game (that's not Correspondence) on any of your
-            accounts.
+            "Cheat detected" games will be reviewed on a case-by-case basis but can be grounds for a disqualification.
           </li>
           <li>
             You already entered the ACWC 2019 with another account. Your already-entered
@@ -51,6 +52,11 @@
       <li>
         <a href="https://lichess.org/@/Ogul1">Ogul1</a>, as 2018 runner-up,
         automatically proceeds to the Candidates.
+      </li>
+      <li>
+        Your seeing rating (which is referred to in some following sections),
+        is equal to the average of your Antichess rating at September 1, 2019, 00:00 UTC
+        and your highest Antichess rating between September 1, 2018, 00:00 UTC and September 1, 2019.
       </li>
       <li>Qualification
         <ol type="1">
