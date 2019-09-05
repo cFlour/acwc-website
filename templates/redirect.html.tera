@@ -1,0 +1,7 @@
+{% extends "base" %}
+
+{% block title %}Redirecting{% endblock title %}
+
+{% block add_to_head %}<meta http-equiv="refresh" content="0;url=/">{% endblock add_to_head %}
+
+{% block content %}<a href="/">Click here if you're not getting automatically redirected.</a>{% endblock content %}
