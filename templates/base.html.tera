@@ -32,6 +32,11 @@
   <div class="container">
     {% block content %}{% endblock content %}
   </div>
+  <nav class="navbar fixed-bottom navbar-light bg-dark">
+    <a class="navbar-brand" href="https://github.com/ProgramFOX/acwc-website">Source code</a>
+    <a class="navbar-brand" href="https://lichess.org/team/antichess-wc">Lichess team</a>
+    <a class="navbar-brand" href="/rules/2019">ACWC Rules</a>
+  </nav>
 </body>
 
 </html>
