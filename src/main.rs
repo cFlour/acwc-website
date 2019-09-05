@@ -4,6 +4,9 @@
 extern crate rocket;
 
 use chrono::prelude::*;
+use postgres::NoTls;
+use r2d2::Pool;
+use r2d2_postgres::PostgresConnectionManager;
 use rand::Rng;
 use rocket::http::{Cookies, Status};
 use rocket::request::Form;
@@ -11,13 +14,14 @@ use rocket::response::Redirect;
 use rocket::State;
 use rocket_contrib::templates::Template;
 use std::collections::HashMap;
-use std::sync::RwLock;
 
 mod config;
+mod db;
 mod lichess;
 mod session;
 
 use config::Config;
+use db::{AcwcDbClient, DbPool, Registration};
 use session::Session;
 
 fn context<'a>(maybe_session: &'a Option<Session>) -> HashMap<&'static str, &'a str> {
@@ -42,11 +46,45 @@ fn registration_state() -> i32 {
 }
 
 #[get("/")]
-fn home(session: Option<Session>) -> Template {
+fn home(
+    maybe_session: Option<Session>,
+    db_pool: State<DbPool>,
+) -> Result<Template, Box<dyn std::error::Error>> {
     match registration_state() {
-        0 => Template::render("home", &context(&session)),
-        1 => Template::render("home_registrationopen", &context(&session)),
-        2 => Template::render("home_registrationclosed", &context(&session)),
+        0 => Ok(Template::render("home", &context(&maybe_session))),
+        1 => {
+            if let Some(session) = &maybe_session {
+                let maybe_registration = db_pool.find_registration(&session.lichess_id)?;
+                if let Some(registration) = maybe_registration {
+                    let mut ctx = context(&maybe_session);
+                    ctx.insert(
+                        "registration_status",
+                        match registration.status {
+                            db::STATUS_PENDING => "pending",
+                            db::STATUS_APPROVED => "approved",
+                            db::STATUS_REJECTED => "rejected",
+                            _ => unreachable!(),
+                        },
+                    );
+                    ctx.insert("td_comment", &registration.td_comment);
+                    Ok(Template::render("registered", &ctx))
+                } else {
+                    Ok(Template::render(
+                        "registrationform",
+                        &context(&maybe_session),
+                    ))
+                }
+            } else {
+                Ok(Template::render(
+                    "home_registrationopen",
+                    &context(&maybe_session),
+                ))
+            }
+        }
+        2 => Ok(Template::render(
+            "home_registrationclosed",
+            &context(&maybe_session),
+        )),
         _ => unreachable!(),
     }
 }
@@ -88,6 +126,37 @@ fn oauth_redirect(
     }
 }
 
+#[derive(FromForm)]
+struct RegisterInfo {
+    #[form(field = "optional-comment")]
+    comment: Option<String>,
+}
+
+#[post("/register", data = "<form>", rank = 1)]
+fn register(
+    form: Form<RegisterInfo>,
+    session: Session,
+    db_pool: State<DbPool>,
+) -> Result<Redirect, Box<dyn std::error::Error>> {
+    if registration_state() == 1 && db_pool.find_registration(&session.lichess_id)?.is_none() {
+        db_pool.insert_registration(&Registration {
+            lichess_id: session.lichess_id,
+            lichess_username: session.lichess_username,
+            status: db::STATUS_PENDING,
+            registrant_comment: form.comment.clone().unwrap_or(String::from("")),
+            td_comment: String::from(""),
+            special: false,
+        })?;
+    }
+
+    Ok(Redirect::to(uri!(home)))
+}
+
+#[post("/register", rank = 2)]
+fn register_needs_authentication() -> Redirect {
+    Redirect::to(uri!(home))
+}
+
 fn random_oauth_state() -> Result<String, std::str::Utf8Error> {
     let mut rng = rand::thread_rng();
     let mut oauth_state_bytes: [u8; 12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -118,10 +187,28 @@ fn logout(cookies: Cookies<'_>) -> Template {
 }
 
 fn main() {
+    let configuration = config::from_file("Config.toml").expect("failed to load config");
+
+    let manager =
+        PostgresConnectionManager::new((&configuration.postgres_options).parse().unwrap(), NoTls);
+    let pool = Pool::new(manager).unwrap();
+
     rocket::ignite()
         .attach(Template::fairing())
-        .manage(config::from_file("Config.toml").expect("failed to load config"))
+        .manage(configuration)
         .manage(reqwest::Client::new())
-        .mount("/", routes![home, rules_2019, auth, oauth_redirect, logout])
+        .manage(pool)
+        .mount(
+            "/",
+            routes![
+                home,
+                rules_2019,
+                auth,
+                oauth_redirect,
+                register,
+                register_needs_authentication,
+                logout
+            ],
+        )
         .launch();
 }

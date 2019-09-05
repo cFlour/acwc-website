@@ -1,0 +1,20 @@
+{% extends "base" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+<div class="row justify-content-md-center"><h3>Please carefully read <a href="/rules/2019">THE RULES</a> before entering!</h3></div>
+<div class="row justify-content-md-center mt-3">
+<form method="POST" action="/register">
+  <div class="form-group">
+    <label for="optional-comment">Optional comment for the tournament director:</label>
+    <textarea id="optional-comment" name="optional-comment" class="form-control"></textarea>
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="read-rules" required>
+    <label class="form-check-label" for="read-rules">I have read and understood, and will comply to, the ACWC rules.</label>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3 py-4" style="width:100%">Register for the ACWC</button>
+</form>
+</div>
+{% endblock content %}

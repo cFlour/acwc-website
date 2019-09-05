@@ -1,0 +1,16 @@
+{% extends "base" %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+{% if registration_status == "pending" %}
+<div class="alert alert-info text-center">
+{% elif registration_status == "approved" %}
+<div class="alert alert-success text-center">
+{% else %}
+<div class="alert alert-danger text-center">
+{% endif %}
+Your registration is <strong>{{ registration_status }}</strong>.
+{{ td_comment }}
+</div>
+{% endblock content %}
