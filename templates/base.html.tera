@@ -31,7 +31,8 @@
   {% else %}
   <div class="container">
     <div class="row justify-content-md-center mb-3">
-      You are not logged in. <a href="/auth">Sign in with Lichess.</a>
+      You are not logged in.&nbsp;
+      <a href="/auth">Sign in with Lichess.</a>
     </div>
   </div>
   {% endif %}
