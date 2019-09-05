@@ -56,6 +56,7 @@ ol#rules-root > li {
              this cannot be disputed. (Consider an approved registration there as an
              exception rather than the rule, especially for II.C.2.)
           </li>
+          <li>BOT accounts cannot play.</li>
         </ol>
       </li>
     </ol>
