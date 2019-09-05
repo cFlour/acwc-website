@@ -34,7 +34,8 @@ pub fn set_session(
     mut cookies: Cookies<'_>,
     session: Session,
 ) -> Result<(), Box<dyn std::error::Error>> {
-    let session_cookie = Cookie::new(SESSION_COOKIE, serde_json::to_string(&session)?);
+    let mut session_cookie = Cookie::new(SESSION_COOKIE, serde_json::to_string(&session)?);
+    session_cookie.set_max_age(Duration::days(90));
     cookies.add_private(session_cookie);
     Ok(())
 }
