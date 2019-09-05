@@ -143,7 +143,7 @@ ol#rules-root > li {
           <li>If neither player achieves this, the match gets extended by two games. Repeat if still no winner.</li>
           <li>If, after 24 games, there is still no winner decided, the "must be ahead by
             two points" restriction gets dropped.</li>
-          <li>If the score is equal still, extensions proceed but with 2+0 as time
+          <li>If the score is equal (12-12), extensions proceed but with 2+0 as time
             control instead of 2+5, until the tie is broken (after an even number of games).</li>
           <li>If there is still no winner after 30 games total, an Armageddon game will be played,
             in the same way as the Atomic World Championship employs it as a tiebreaker.
