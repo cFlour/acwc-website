@@ -144,7 +144,7 @@ fn register(
             lichess_id: session.lichess_id,
             lichess_username: session.lichess_username,
             status: db::STATUS_PENDING,
-            registrant_comment: form.comment.clone().unwrap_or(String::from("")),
+            registrant_comment: form.comment.clone().unwrap_or_else(|| String::from("")),
             td_comment: String::from(""),
             special: false,
         })?;
@@ -243,7 +243,7 @@ fn admin_action(
     db_pool: State<DbPool>,
 ) -> Result<Redirect, Box<dyn std::error::Error>> {
     if is_admin(&session, &config) {
-        let td_comment = form.comment.clone().unwrap_or(String::from(""));
+        let td_comment = form.comment.clone().unwrap_or_else(|| String::from(""));
         match what.as_ref() {
             "approve" => db_pool.approve_registration(&who, &td_comment)?,
             "reject" => db_pool.reject_registration(&who, &td_comment)?,
