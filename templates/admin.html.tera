@@ -1,0 +1,32 @@
+{% extends "base" %}
+
+{% block title %}Admin{% endblock title %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Username</th>
+      <th scope="col">Status</th>
+      <th scope="col">Review</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for registration in registrations %}
+    <tr>
+      <td><a href="https://lichess.org/@/{{ registration.lichess_username }}">{{ registration.lichess_username }}</a></td>
+      <td>
+        {% if registration.status == 0 %}
+        Pending
+        {% elif registration.status == 1 %}
+        Approved
+        {% else %}
+        Rejected
+        {% endif %}
+      </td>
+      <td><a href="/admin/review/{{ registration.lichess_id }}">Review</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

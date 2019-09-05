@@ -46,6 +46,7 @@ pub trait AcwcDbClient {
         &self,
         lichess_id: &str,
     ) -> Result<Option<Registration>, Box<dyn std::error::Error>>;
+    fn all_registrations(&self) -> Result<Vec<Registration>, Box<dyn std::error::Error>>;
     fn approve_registration(
         &self,
         lichess_id: &str,
@@ -99,6 +100,26 @@ impl AcwcDbClient for DbPool {
             td_comment: row.get(4),
             special: row.get(5),
         }))
+    }
+
+    fn all_registrations(&self) -> Result<Vec<Registration>, Box<dyn std::error::Error>> {
+        let rows = self.w()?.query(
+            "SELECT lichessid, lichessusername, status, registrantcomment, \
+             tdcomment, special FROM registrations",
+            &[],
+        )?;
+        let mut registrations: Vec<Registration> = vec![];
+        for row in rows {
+            registrations.push(Registration {
+                lichess_id: row.get(0),
+                lichess_username: row.get(1),
+                status: row.get(2),
+                registrant_comment: row.get(3),
+                td_comment: row.get(4),
+                special: row.get(5),
+            });
+        }
+        Ok(registrations)
     }
 
     fn approve_registration(

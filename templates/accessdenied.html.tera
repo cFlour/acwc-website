@@ -1,0 +1,7 @@
+{% extends "base" %}
+
+{% block title %}Access denied{% endblock title %}
+
+{% block content %}
+Access denied.
+{% endblock content %}

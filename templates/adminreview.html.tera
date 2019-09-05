@@ -1,0 +1,40 @@
+{% extends "base" %}
+
+{% block title %}Review{% endblock title %}
+
+{% block content %}
+<h2 align="center">Review</h2>
+<p align="center">
+  Lichess account: <a href="https://lichess.org/@/{{ registration.lichess_username }}">{{ registration.lichess_username }}</a>
+</p>
+<p>
+  Status:
+  {% if registration.status == 0 %}
+  Pending
+  {% elif registration.status == 1 %}
+  Approved
+  {% else %}
+  Rejected
+  {% endif %}
+</p>
+<p>Comment: {{ registration.registrant_comment }}</p>
+<p>"Special": {{ registration.special }}</p>
+<form method="POST">
+<div class="form-group">
+  <label for="optional-comment">TD comment:</label>
+  <textarea class="form-control" id="optional-comment" name="optional-comment"></textarea>
+  <div class="container">
+  <div class="row justify-content-between mt-4">
+  <div class="col">
+  <button type="submit" formaction="/admin/action/approve/{{ registration.lichess_id }}" class="btn btn-success">Approve</button>
+  </div>
+  <div class="col">
+  <button type="submit" formaction="/admin/action/reject/{{ registration.lichess_id }}" class="btn btn-danger">Reject</button>
+  </div>
+  <div class="col">
+  <button type="submit" formaction="/admin/action/withdraw/{{ registration.lichess_id }}" class="btn btn-warning">Withdraw</button>
+  </div>
+  </div>
+  </div>
+</div>
+{% endblock content %}

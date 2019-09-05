@@ -13,6 +13,7 @@ use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
 use rocket_contrib::templates::Template;
+use serde_json::json;
 use std::collections::HashMap;
 
 mod config;
@@ -127,14 +128,14 @@ fn oauth_redirect(
 }
 
 #[derive(FromForm)]
-struct RegisterInfo {
+struct OptionalCommentForm {
     #[form(field = "optional-comment")]
     comment: Option<String>,
 }
 
 #[post("/register", data = "<form>", rank = 1)]
 fn register(
-    form: Form<RegisterInfo>,
+    form: Form<OptionalCommentForm>,
     session: Session,
     db_pool: State<DbPool>,
 ) -> Result<Redirect, Box<dyn std::error::Error>> {
@@ -186,6 +187,75 @@ fn logout(cookies: Cookies<'_>) -> Template {
     Template::render("redirect", &context(&None))
 }
 
+fn is_admin(session: &Session, config: &State<Config>) -> bool {
+    session.lichess_id == config.tournament_director
+}
+
+#[get("/admin")]
+fn admin(
+    session: Session,
+    config: State<Config>,
+    db_pool: State<DbPool>,
+) -> Result<Template, Box<dyn std::error::Error>> {
+    if is_admin(&session, &config) {
+        let mut registrations = db_pool.all_registrations()?;
+        registrations.sort_by_key(|r| r.status);
+        Ok(Template::render(
+            "admin",
+            &json!({
+                "username": &session.lichess_username,
+                "registrations": registrations
+            }),
+        ))
+    } else {
+        Ok(Template::render("accessdenied", &context(&Some(session))))
+    }
+}
+
+#[get("/admin/review/<who>")]
+fn admin_review(
+    who: String,
+    session: Session,
+    config: State<Config>,
+    db_pool: State<DbPool>,
+) -> Result<Template, Box<dyn std::error::Error>> {
+    if is_admin(&session, &config) {
+        let registration = db_pool.find_registration(&who)?;
+        Ok(Template::render(
+            "adminreview",
+            &json!({
+                "username": &session.lichess_username,
+                "registration": registration
+            }),
+        ))
+    } else {
+        Ok(Template::render("accessdenied", &context(&Some(session))))
+    }
+}
+
+#[post("/admin/action/<what>/<who>", data = "<form>")]
+fn admin_action(
+    form: Form<OptionalCommentForm>,
+    what: String,
+    who: String,
+    session: Session,
+    config: State<Config>,
+    db_pool: State<DbPool>,
+) -> Result<Redirect, Box<dyn std::error::Error>> {
+    if is_admin(&session, &config) {
+        let td_comment = form.comment.clone().unwrap_or(String::from(""));
+        match what.as_ref() {
+            "approve" => db_pool.approve_registration(&who, &td_comment)?,
+            "reject" => db_pool.reject_registration(&who, &td_comment)?,
+            "withdraw" => db_pool.withdraw_registration(&who)?,
+            _ => unreachable!(),
+        };
+        Ok(Redirect::to(uri!(admin)))
+    } else {
+        Ok(Redirect::to(uri!(home)))
+    }
+}
+
 fn main() {
     let configuration = config::from_file("Config.toml").expect("failed to load config");
 
@@ -207,6 +277,9 @@ fn main() {
                 oauth_redirect,
                 register,
                 register_needs_authentication,
+                admin,
+                admin_review,
+                admin_action,
                 logout
             ],
         )
