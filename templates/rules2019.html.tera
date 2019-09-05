@@ -176,7 +176,7 @@ ol#rules-root > li {
     <ol type="A">
       <li>Players may begin negotiating a playing start time as soon as their
         next pairing is known. When a time is agreed on, it must be shared in the
-        pairings forum post.</li>
+        <a href="https://lichess.org/forum/team-antichess-wc/acwc-pairings-and-match-results">pairings forum post</a>.</li>
       <li>To prevent (most) timezone confusion, players must communicate their times in UTC.</li>
       <li>Each player is responsible to offer at least 3 separate times for the
         match, by Wednesday at the latest, unless an offer has been accepted before
@@ -213,7 +213,8 @@ ol#rules-root > li {
         and this counts as their break. If they don't come back in time, their opponent gets the option
         to claim a win.</li>
       <li>If a player gets forfeited in two different matches, they get disqualified from the ACWC.</li>
-      <li>After a match, either player must post the results in the Pairings forum post.</li>
+      <li>After a match, either player must post the results in the
+        <a href="https://lichess.org/forum/team-antichess-wc/acwc-pairings-and-match-results">Pairings forum post</a>.</li>
     </ol>
   </li>
   <li>Reporting cheats
