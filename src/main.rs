@@ -34,7 +34,7 @@ fn context<'a>(maybe_session: &'a Option<Session>) -> HashMap<&'static str, &'a 
 }
 
 fn registration_state() -> i32 {
-    let register_start = Utc.ymd(2019, 9, 4).and_hms(20, 0, 0);
+    let register_start = Utc.ymd(2019, 9, 5).and_hms(20, 0, 0);
     let register_end = Utc.ymd(2019, 9, 27).and_hms(20, 0, 0);
     let now = Utc::now();
     if now >= register_end {
