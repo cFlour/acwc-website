@@ -1,5 +1,5 @@
 use chrono::Duration;
-use rocket::http::{Cookie, Cookies};
+use rocket::http::{Cookie, Cookies, SameSite};
 use rocket::outcome::IntoOutcome;
 use rocket::request::{FromRequest, Outcome};
 use rocket::Request;
@@ -36,6 +36,8 @@ pub fn set_session(
 ) -> Result<(), Box<dyn std::error::Error>> {
     let mut session_cookie = Cookie::new(SESSION_COOKIE, serde_json::to_string(&session)?);
     session_cookie.set_max_age(Duration::days(90));
+    session_cookie.set_same_site(SameSite::Lax);
+    session_cookie.set_secure(true);
     cookies.add_private(session_cookie);
     Ok(())
 }
