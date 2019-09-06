@@ -91,11 +91,9 @@ ol#rules-root > li {
             a lost match gives 0 points. Once either player reaches 5.5 in a match, the
             players are allowed to stop there.
           </li>
-          <li>The Swiss will consist of at least 5 rounds. If there are more
-            than 32 participants, the number of rounds will be the base-2 logarithm of
-            the number of participants, rounded up. (In less mathematical terms, that
-            means that there will be 6 rounds for 33-64 players, 7 rounds for 65-128
-            players, etc.)
+          <li>The number of rounds will be the base-2 logarithm of the number
+          of participants, rounded up, plus two. So 32-63 players is 7 rounds,
+          64-127 players is 8 rounds, etc.
           </li>
           <li>
             The three players that scored most points in the Swiss, will proceed to the
