@@ -76,16 +76,10 @@ ol#rules-root > li {
         <a href="https://lichess.org/@/Ogul1">Ogul1</a>, as 2018 runner-up,
         automatically proceeds to the Candidates.
       </li>
-      <li>
-        Your seeding rating (which is referred to in some following sections)
-        is equal to the average of your Antichess rating at September 1, 2019, 00:00 UTC
-        and your highest Antichess rating between September 1, 2018, 00:00 UTC and September 1, 2019, 00:00 UTC.
-      </li>
       <li>Qualification
         <ol type="1">
           <li>
-            A Swiss tournament (with a pairing system based on the Monrad system)
-            will be played between all entrants (except for arimakat
+            A Swiss tournament will be played between all entrants (except for arimakat
             and Ogul1). Each participant plays a 10-game match per round.
             A won match gives 1 point, a tie (5-5) gives 0.5 points,
             a lost match gives 0 points. Once either player reaches 5.5 in a match, the
@@ -96,35 +90,17 @@ ol#rules-root > li {
           64-127 players is 8 rounds, etc.
           </li>
           <li>
-            The three players that scored most points in the Swiss, will proceed to the
-            Candidates. In case of a tie, the sum of all opponents' seeding ratings is used as
-            tiebreaker.
+            Your seeding rating is equal to the average of your Antichess rating at September 1, 2019, 00:00 UTC
+            and your highest Antichess rating between September 1, 2018, 00:00 UTC and September 1, 2019, 00:00 UTC.
           </li>
-          <li>Pairing details
-            <ol type="i">
-              <li>
-                After each round, the players are ranked based on score, then
-                the average of their opponents' seeding ratings, then their own seeding rating.
-              </li>
-              <li>
-                If there is an odd number of players, the lowest-ranked player (who has not received a bye yet)
-                receives a bye, meaning they don't have to play that round and are assigned a win. This win does
-                not count towards the average of their opponents' seeding ratings. If a player has only played one
-                game and it's a win because of a bye, the average opponent seeding rating is considered to be zero.
-              </li>
-              <li>
-                The highest-ranked unpaired player gets paired with the player closest to them (in ranking)
-                that they have not played yet. This process gets repeated until all players are paired.
-                <p>
-                  <small>
-                    I'm not sure if this prevents the last two players to face each other more than once.
-                    But that won't affect the results and the main purpose is to keep the pairing system simple, so everyone can independently verify
-                    the pairings without requiring specialized software, which is most often paid anyway.
-                  </small>
-                </p>
-              </li>
-            </ol>
+          <li>
+            The three players that scored highest in the Swiss, will proceed to the
+            Candidates.
           </li>
+          <li>Pairings will be taken care of by the online tournament manager Challonge. The first
+            tiebreaker is the number of wins against tied participants, the second tiebreaker employs
+            the Median-Buchholz system. <a href="https://feedback.challonge.com/knowledgebase/articles/448540-rank-tie-break-statistics">Read about
+            the tiebreakers here.</a></li>
         </ol>
       <li>Candidates
         <ol type="1">
