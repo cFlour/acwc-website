@@ -90,8 +90,8 @@ ol#rules-root > li {
           64-127 players is 8 rounds, etc.
           </li>
           <li>
-            Your seeding rating is equal to the average of your Antichess rating at September 1, 2019, 00:00 UTC
-            and your highest Antichess rating between September 1, 2018, 00:00 UTC and September 1, 2019, 00:00 UTC.
+            Your seeding rating is equal to the average of your Antichess rating at September 1, 2019, 00:00 CEST
+            and your highest Antichess rating between September 1, 2018, 00:00 CEST and September 1, 2019, 00:00 CEST.
           </li>
           <li>
             The three players that scored highest in the Swiss, will proceed to the
