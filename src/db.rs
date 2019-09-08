@@ -1,4 +1,4 @@
-use postgres::{Client, NoTls};
+use postgres::NoTls;
 use r2d2::{Pool, PooledConnection};
 use r2d2_postgres::PostgresConnectionManager;
 use serde::Serialize;
@@ -32,55 +32,20 @@ pub struct QualificationEntrant {
     pub seeding_rating: f64,
 }
 
-pub fn connect(connection_string: &str) -> Result<Client, postgres::Error> {
-    Client::connect(connection_string, NoTls)
+pub fn connect(connection_options: &str) -> Result<AcwcDbClient, Box<dyn std::error::Error>> {
+    let manager = PostgresConnectionManager::new(connection_options.parse()?, NoTls);
+    let pool = Pool::new(manager)?;
+    Ok(AcwcDbClient(pool))
 }
 
-fn set_status<T: AcwcDbClient>(
-    db_client: &T,
-    lichess_id: &str,
-    td_comment: &str,
-    status: i32,
-) -> Result<u64, Box<dyn std::error::Error>> {
-    Ok(db_client.w()?.execute(
-        "UPDATE registrations SET status = $1, tdcomment = $2 WHERE lichessid = $3",
-        &[&status, &td_comment, &lichess_id],
-    )?)
-}
+pub struct AcwcDbClient(DbPool);
 
-pub trait AcwcDbClient {
-    fn w(&self) -> Result<DbConnection, Box<dyn std::error::Error>>;
-    fn insert_registration(
-        &self,
-        registration: &Registration,
-    ) -> Result<u64, Box<dyn std::error::Error>>;
-    fn find_registration(
-        &self,
-        lichess_id: &str,
-    ) -> Result<Option<Registration>, Box<dyn std::error::Error>>;
-    fn all_registrations(&self) -> Result<Vec<Registration>, Box<dyn std::error::Error>>;
-    fn approve_registration(
-        &self,
-        lichess_id: &str,
-        td_comment: &str,
-    ) -> Result<u64, Box<dyn std::error::Error>>;
-    fn reject_registration(
-        &self,
-        lichess_id: &str,
-        td_comment: &str,
-    ) -> Result<u64, Box<dyn std::error::Error>>;
-    fn withdraw_registration(&self, lichess_id: &str) -> Result<u64, Box<dyn std::error::Error>>;
-    fn qualification_entrants(
-        &self,
-    ) -> Result<Vec<QualificationEntrant>, Box<dyn std::error::Error>>;
-}
-
-impl AcwcDbClient for DbPool {
+impl AcwcDbClient {
     fn w(&self) -> Result<DbConnection, Box<dyn std::error::Error>> {
-        Ok(self.get()?)
+        Ok(self.0.get()?)
     }
 
-    fn insert_registration(
+    pub fn insert_registration(
         &self,
         registration: &Registration,
     ) -> Result<u64, Box<dyn std::error::Error>> {
@@ -98,7 +63,7 @@ impl AcwcDbClient for DbPool {
         )?)
     }
 
-    fn find_registration(
+    pub fn find_registration(
         &self,
         lichess_id: &str,
     ) -> Result<Option<Registration>, Box<dyn std::error::Error>> {
@@ -117,7 +82,7 @@ impl AcwcDbClient for DbPool {
         }))
     }
 
-    fn all_registrations(&self) -> Result<Vec<Registration>, Box<dyn std::error::Error>> {
+    pub fn all_registrations(&self) -> Result<Vec<Registration>, Box<dyn std::error::Error>> {
         let rows = self.w()?.query(
             "SELECT lichessid, lichessusername, status, registrantcomment, \
              tdcomment, special FROM registrations",
@@ -137,30 +102,45 @@ impl AcwcDbClient for DbPool {
         Ok(registrations)
     }
 
-    fn approve_registration(
+    fn set_status(
+        &self,
+        lichess_id: &str,
+        td_comment: &str,
+        status: i32,
+    ) -> Result<u64, Box<dyn std::error::Error>> {
+        Ok(self.w()?.execute(
+            "UPDATE registrations SET status = $1, tdcomment = $2 WHERE lichessid = $3",
+            &[&status, &td_comment, &lichess_id],
+        )?)
+    }
+
+    pub fn approve_registration(
         &self,
         lichess_id: &str,
         td_comment: &str,
     ) -> Result<u64, Box<dyn std::error::Error>> {
-        set_status(self, lichess_id, td_comment, STATUS_APPROVED)
+        self.set_status(lichess_id, td_comment, STATUS_APPROVED)
     }
 
-    fn reject_registration(
+    pub fn reject_registration(
         &self,
         lichess_id: &str,
         td_comment: &str,
     ) -> Result<u64, Box<dyn std::error::Error>> {
-        set_status(self, lichess_id, td_comment, STATUS_REJECTED)
+        self.set_status(lichess_id, td_comment, STATUS_REJECTED)
     }
 
-    fn withdraw_registration(&self, lichess_id: &str) -> Result<u64, Box<dyn std::error::Error>> {
+    pub fn withdraw_registration(
+        &self,
+        lichess_id: &str,
+    ) -> Result<u64, Box<dyn std::error::Error>> {
         Ok(self.w()?.execute(
             "DELETE FROM registrations WHERE lichessid = $1",
             &[&lichess_id],
         )?)
     }
 
-    fn qualification_entrants(
+    pub fn qualification_entrants(
         &self,
     ) -> Result<Vec<QualificationEntrant>, Box<dyn std::error::Error>> {
         let rows = self.w()?.query(

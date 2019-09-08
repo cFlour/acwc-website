@@ -4,9 +4,6 @@
 extern crate rocket;
 
 use chrono::prelude::*;
-use postgres::NoTls;
-use r2d2::Pool;
-use r2d2_postgres::PostgresConnectionManager;
 use rand::Rng;
 use rocket::http::{Cookies, Status};
 use rocket::request::Form;
@@ -22,7 +19,7 @@ mod lichess;
 mod session;
 
 use config::Config;
-use db::{AcwcDbClient, DbPool, Registration};
+use db::{AcwcDbClient, Registration};
 use session::Session;
 
 fn context<'a>(maybe_session: &'a Option<Session>) -> HashMap<&'static str, &'a str> {
@@ -49,13 +46,13 @@ fn registration_state() -> i32 {
 #[get("/")]
 fn home(
     maybe_session: Option<Session>,
-    db_pool: State<DbPool>,
+    db_client: State<AcwcDbClient>,
 ) -> Result<Template, Box<dyn std::error::Error>> {
     match registration_state() {
         0 => Ok(Template::render("home", &context(&maybe_session))),
         1 => {
             if let Some(session) = &maybe_session {
-                let maybe_registration = db_pool.find_registration(&session.lichess_id)?;
+                let maybe_registration = db_client.find_registration(&session.lichess_id)?;
                 if let Some(registration) = maybe_registration {
                     let mut ctx = context(&maybe_session);
                     ctx.insert(
@@ -137,10 +134,10 @@ struct OptionalCommentForm {
 fn register(
     form: Form<OptionalCommentForm>,
     session: Session,
-    db_pool: State<DbPool>,
+    db_client: State<AcwcDbClient>,
 ) -> Result<Redirect, Box<dyn std::error::Error>> {
-    if registration_state() == 1 && db_pool.find_registration(&session.lichess_id)?.is_none() {
-        db_pool.insert_registration(&Registration {
+    if registration_state() == 1 && db_client.find_registration(&session.lichess_id)?.is_none() {
+        db_client.insert_registration(&Registration {
             lichess_id: session.lichess_id,
             lichess_username: session.lichess_username,
             status: db::STATUS_PENDING,
@@ -195,10 +192,10 @@ fn is_admin(session: &Session, config: &State<Config>) -> bool {
 fn admin(
     session: Session,
     config: State<Config>,
-    db_pool: State<DbPool>,
+    db_client: State<AcwcDbClient>,
 ) -> Result<Template, Box<dyn std::error::Error>> {
     if is_admin(&session, &config) {
-        let mut registrations = db_pool.all_registrations()?;
+        let mut registrations = db_client.all_registrations()?;
         registrations.sort_by_key(|r| r.status);
         Ok(Template::render(
             "admin",
@@ -217,10 +214,10 @@ fn admin_review(
     who: String,
     session: Session,
     config: State<Config>,
-    db_pool: State<DbPool>,
+    db_client: State<AcwcDbClient>,
 ) -> Result<Template, Box<dyn std::error::Error>> {
     if is_admin(&session, &config) {
-        let registration = db_pool.find_registration(&who)?;
+        let registration = db_client.find_registration(&who)?;
         Ok(Template::render(
             "adminreview",
             &json!({
@@ -240,14 +237,14 @@ fn admin_action(
     who: String,
     session: Session,
     config: State<Config>,
-    db_pool: State<DbPool>,
+    db_client: State<AcwcDbClient>,
 ) -> Result<Redirect, Box<dyn std::error::Error>> {
     if is_admin(&session, &config) {
         let td_comment = form.comment.clone().unwrap_or_else(|| String::from(""));
         match what.as_ref() {
-            "approve" => db_pool.approve_registration(&who, &td_comment)?,
-            "reject" => db_pool.reject_registration(&who, &td_comment)?,
-            "withdraw" => db_pool.withdraw_registration(&who)?,
+            "approve" => db_client.approve_registration(&who, &td_comment)?,
+            "reject" => db_client.reject_registration(&who, &td_comment)?,
+            "withdraw" => db_client.withdraw_registration(&who)?,
             _ => unreachable!(),
         };
         Ok(Redirect::to(uri!(admin)))
@@ -259,13 +256,13 @@ fn admin_action(
 #[get("/2019/qualification")]
 fn qualification(
     session: Option<Session>,
-    db_pool: State<DbPool>,
+    db_client: State<AcwcDbClient>,
 ) -> Result<Template, Box<dyn std::error::Error>> {
     Ok(Template::render(
         "qualification",
         json!({
             "username": session.map(|s| s.lichess_username),
-            "entrants": db_pool.qualification_entrants()?
+            "entrants": db_client.qualification_entrants()?
         }),
     ))
 }
@@ -273,15 +270,13 @@ fn qualification(
 fn main() {
     let configuration = config::from_file("Config.toml").expect("failed to load config");
 
-    let manager =
-        PostgresConnectionManager::new((&configuration.postgres_options).parse().unwrap(), NoTls);
-    let pool = Pool::new(manager).unwrap();
+    let db_client = db::connect(&configuration.postgres_options).unwrap();
 
     rocket::ignite()
         .attach(Template::fairing())
         .manage(configuration)
         .manage(reqwest::Client::new())
-        .manage(pool)
+        .manage(db_client)
         .mount(
             "/",
             routes![
