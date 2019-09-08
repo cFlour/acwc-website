@@ -1,0 +1,41 @@
+{% extends "base" %}
+
+{% block title %}Qualification{% endblock title %}
+
+{% block content %}
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Username</th>
+      <th scope="col">Sep 1 rating</th>
+      <th scope="col">Highest rating</th>
+      <th scope="col">Seeding rating</th>
+    </tr>
+  </thead>
+  <tbody>
+    <h2 align="center">Qualification entrants</h2>
+    {% for entrant in entrants %}
+    <tr>
+      <td>{{ entrant.seed }}</td>
+      <td><a href="https://lichess.org/@/{{ entrant.lichess_username }}">{{ entrant.lichess_username }}</a></td>
+      <td>
+          {% if entrant.latest_rating_url != "" %}
+          <a href="{{ entrant.latest_rating_url }}">{{ entrant.latest_rating }}</a>
+          {% else %}
+          {{ entrant.latest_rating }}
+          {% endif %}
+      </td>
+      <td>
+        {% if entrant.highest_rating_url != "" %}
+        <a href="{{ entrant.highest_rating_url }}">{{ entrant.highest_rating }}</a>
+        {% else %}
+        {{ entrant.highest_rating }}
+        {% endif %}
+      </td>
+      <td>{{ entrant.seeding_rating }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock content %}

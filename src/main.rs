@@ -256,6 +256,20 @@ fn admin_action(
     }
 }
 
+#[get("/2019/qualification")]
+fn qualification(
+    session: Option<Session>,
+    db_pool: State<DbPool>,
+) -> Result<Template, Box<dyn std::error::Error>> {
+    Ok(Template::render(
+        "qualification",
+        json!({
+            "username": session.map(|s| s.lichess_username),
+            "entrants": db_pool.qualification_entrants()?
+        }),
+    ))
+}
+
 fn main() {
     let configuration = config::from_file("Config.toml").expect("failed to load config");
 
@@ -280,6 +294,7 @@ fn main() {
                 admin,
                 admin_review,
                 admin_action,
+                qualification,
                 logout
             ],
         )

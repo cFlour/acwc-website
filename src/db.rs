@@ -20,6 +20,18 @@ pub struct Registration {
     pub special: bool,
 }
 
+#[derive(Serialize)]
+pub struct QualificationEntrant {
+    pub seed: i32,
+    pub lichess_id: String,
+    pub lichess_username: String,
+    pub latest_rating: i32,
+    pub latest_rating_url: String,
+    pub highest_rating: i32,
+    pub highest_rating_url: String,
+    pub seeding_rating: f64,
+}
+
 pub fn connect(connection_string: &str) -> Result<Client, postgres::Error> {
     Client::connect(connection_string, NoTls)
 }
@@ -58,6 +70,9 @@ pub trait AcwcDbClient {
         td_comment: &str,
     ) -> Result<u64, Box<dyn std::error::Error>>;
     fn withdraw_registration(&self, lichess_id: &str) -> Result<u64, Box<dyn std::error::Error>>;
+    fn qualification_entrants(
+        &self,
+    ) -> Result<Vec<QualificationEntrant>, Box<dyn std::error::Error>>;
 }
 
 impl AcwcDbClient for DbPool {
@@ -143,5 +158,33 @@ impl AcwcDbClient for DbPool {
             "DELETE FROM registrations WHERE lichessid = $1",
             &[&lichess_id],
         )?)
+    }
+
+    fn qualification_entrants(
+        &self,
+    ) -> Result<Vec<QualificationEntrant>, Box<dyn std::error::Error>> {
+        let rows = self.w()?.query(
+            "SELECT lichessid, lichessusername, latestrating, \
+             latestratingurl, highestrating, highestratingurl FROM qualification \
+             ORDER BY (latestrating+highestrating) DESC",
+            &[],
+        )?;
+        let mut entrants: Vec<QualificationEntrant> = vec![];
+        for (i, row) in rows.iter().enumerate() {
+            let latest_rating = row.get(2);
+            let highest_rating = row.get(4);
+            let seeding_rating = (latest_rating + highest_rating) as f64 / 2.0;
+            entrants.push(QualificationEntrant {
+                seed: i as i32 + 1,
+                lichess_id: row.get(0),
+                lichess_username: row.get(1),
+                latest_rating,
+                latest_rating_url: row.get(3),
+                highest_rating,
+                highest_rating_url: row.get(5),
+                seeding_rating,
+            });
+        }
+        Ok(entrants)
     }
 }
