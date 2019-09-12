@@ -100,7 +100,8 @@ ol#rules-root > li {
           <li>Pairings will be taken care of by the online tournament manager Challonge. The first
             tiebreaker is the number of wins against tied participants, the second tiebreaker employs
             the Median-Buchholz system. <a href="https://feedback.challonge.com/knowledgebase/articles/448540-rank-tie-break-statistics">Read about
-            the tiebreakers here.</a></li>
+            the tiebreakers here. (In the unlikely event that there's still a tie after all rounds and it matters for the top 3,
+            10-game tiebreak matches will be played.)</a></li>
         </ol>
       <li>Candidates
         <ol type="1">
