@@ -3,8 +3,14 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<h2 align="center">Registrations are closed!</h2>
+<h2 align="center">The ACWC has started!</h2>
 <p align="center">
-  Information about the pairings follows soon, here and in the forum.
+  Useful links:
+  <ul>
+    <li><a href="/rules/2019">ACWC rules</a></li>
+    <li><a href="/2019/qualification">Qualification entrant list</a></li>
+    <li><a href="https://challonge.com/hlo71ckk">Challonge bracket for Qualification pairings</a></li>
+    <li><a href="https://lichess.org/forum/team-antichess-wc/acwc-pairings-and-match-results">Pairings and match times forum post</a></li>
+  </ul>
 </p>
 {% endblock content %}
