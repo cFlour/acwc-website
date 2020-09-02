@@ -16,6 +16,10 @@ body {
   content: 'Antichess World Championship';
 }
 
+.navbar a {
+  color: white;
+}
+
 @media screen and (max-width:460px) {
   .title:before {
     content: 'Antichess WC';
