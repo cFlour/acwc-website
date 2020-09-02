@@ -42,8 +42,8 @@
   <nav class="navbar fixed-bottom navbar-light bg-dark">
     <a class="navbar-brand" href="https://github.com/thomas-daniels/acwc-website">Source code</a>
     <a class="navbar-brand" href="https://lichess.org/team/antichess-wc">Lichess team</a>
-    <a class="navbar-brand" href="/2019/qualification">Entrants</a>
-    <a class="navbar-brand" href="/rules/2019">ACWC Rules</a>
+    <a class="navbar-brand" href="/2020/qualification">Entrants</a>
+    <a class="navbar-brand" href="/rules/2020">ACWC Rules</a>
   </nav>
 </body>
 

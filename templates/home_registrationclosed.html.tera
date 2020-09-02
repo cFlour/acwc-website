@@ -7,10 +7,9 @@
 <p>
   Useful links:
   <ul>
-    <li><a href="/rules/2019">ACWC rules</a></li>
-    <li><a href="/2019/qualification">Qualification entrant list</a></li>
-    <li><a href="https://challonge.com/hlo71ckk">Challonge bracket for Qualification pairings</a></li>
-    <li><a href="https://lichess.org/forum/team-antichess-wc/acwc-pairings-and-match-results">Pairings and match times forum post</a></li>
+    <li><a href="/rules/2020">ACWC rules</a></li>
+    <li><a href="/2020/qualification">Qualification entrant list</a></li>
+    <li><a href="https://lichess.org/forum/team-antichess-wc/acwc-2020-pairings-and-match-results">Pairings and match times forum post</a></li>
   </ul>
 </p>
 {% endblock content %}
