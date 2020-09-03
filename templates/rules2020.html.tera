@@ -86,8 +86,8 @@
                         players are allowed to stop there.
                     </li>
                     <li>The number of rounds will be the base-2 logarithm of the number
-                        of participants, rounded up, plus two. So 32-63 players is 8 rounds,
-                        64-127 players is 9 rounds, etc.
+                        of participants, rounded up, plus two. So 33-64 players is 8 rounds,
+                        65-128 players is 9 rounds, etc.
                     </li>
                     <li>
                         Your seeding rating is equal to the average of your Antichess rating at September 1, 2020, 00:00 UTC
@@ -235,7 +235,7 @@
                 will be forfeited in favor of the appearing player.</li>
             <li>If a player leaves the match while it's still ongoing, they get 10 minutes to come back
                 and this counts as their break. If they don't come back in time, their opponent gets the option
-                to claim a win (similar to rule rule VI.D).</li>
+                to claim a win (similar to rule VI.D).</li>
             <li>If a player gets forfeited in two different matches, they get disqualified from the ACWC.</li>
             <li>After a match, either player must post the results in the
                 <a href="https://lichess.org/forum/team-antichess-wc/acwc-2020-pairings-and-match-results">Pairings forum
