@@ -127,7 +127,7 @@
                     </li>
                     <li>
                         Each match consists of 10 games. A won game gives 1 point, a draw gives 0.5 points, and a lost game gives 0 points. Once either player reaches 5.5 in a match, the players are allowed to stop there.
-                    z/li>
+                    </li>
                     <li>Ties will be decided by an Armageddon game.
                         <ol type="i">
                             <li>Black gets 3 minutes on the clock and draw odds (i.e. if draw, black wins).</li>
