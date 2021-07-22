@@ -31,8 +31,8 @@ fn context<'a>(maybe_session: &'a Option<Session>) -> HashMap<&'static str, &'a 
 }
 
 fn registration_state() -> i32 {
-    let register_start = Utc.ymd(2020, 9, 1).and_hms(20, 0, 0);
-    let register_end = Utc.ymd(2020, 9, 22).and_hms(20, 0, 0);
+    let register_start = Utc.ymd(2021, 8, 1).and_hms(0, 0, 0);
+    let register_end = Utc.ymd(2021, 9, 1).and_hms(0, 0, 0);
     let now = Utc::now();
     if now >= register_end {
         2 // registration ended
@@ -85,16 +85,6 @@ fn home(
         )),
         _ => unreachable!(),
     }
-}
-
-#[get("/rules/2019")]
-fn rules_2019(session: Option<Session>) -> Template {
-    Template::render("rules2019", &context(&session))
-}
-
-#[get("/rules/2020")]
-fn rules_2020(session: Option<Session>) -> Template {
-    Template::render("rules2020", &context(&session))
 }
 
 #[get("/oauth_redirect?<code>&<state>")]
@@ -258,20 +248,6 @@ fn admin_action(
     }
 }
 
-#[get("/2020/qualification")]
-fn qualification(
-    session: Option<Session>,
-    db_client: State<AcwcDbClient>,
-) -> Result<Template, Box<dyn std::error::Error>> {
-    Ok(Template::render(
-        "qualification",
-        json!({
-            "username": session.map(|s| s.lichess_username),
-            "entrants": db_client.qualification_entrants()?
-        }),
-    ))
-}
-
 fn main() {
     let configuration = config::from_file("Config.toml").expect("failed to load config");
 
@@ -286,8 +262,6 @@ fn main() {
             "/",
             routes![
                 home,
-                rules_2019,
-                rules_2020,
                 auth,
                 oauth_redirect,
                 register,
@@ -295,7 +269,6 @@ fn main() {
                 admin,
                 admin_review,
                 admin_action,
-                qualification,
                 logout
             ],
         )

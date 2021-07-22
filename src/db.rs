@@ -139,32 +139,4 @@ impl AcwcDbClient {
             &[&lichess_id],
         )?)
     }
-
-    pub fn qualification_entrants(
-        &self,
-    ) -> Result<Vec<QualificationEntrant>, Box<dyn std::error::Error>> {
-        let rows = self.w()?.query(
-            "SELECT lichessid, lichessusername, latestrating, \
-             latestratingurl, highestrating, highestratingurl FROM qualification \
-             ORDER BY (latestrating+highestrating) DESC",
-            &[],
-        )?;
-        let mut entrants: Vec<QualificationEntrant> = vec![];
-        for (i, row) in rows.iter().enumerate() {
-            let latest_rating = row.get(2);
-            let highest_rating = row.get(4);
-            let seeding_rating = (latest_rating + highest_rating) as f64 / 2.0;
-            entrants.push(QualificationEntrant {
-                seed: i as i32 + 1,
-                lichess_id: row.get(0),
-                lichess_username: row.get(1),
-                latest_rating,
-                latest_rating_url: row.get(3),
-                highest_rating,
-                highest_rating_url: row.get(5),
-                seeding_rating,
-            });
-        }
-        Ok(entrants)
-    }
 }

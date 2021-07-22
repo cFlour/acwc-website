@@ -3,13 +3,12 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<h2 align="center">The ACWC has started!</h2>
+<h2 align="center">The AWC has started!</h2>
 <p>
   Useful links:
   <ul>
-    <li><a href="/rules/2020">ACWC rules</a></li>
-    <li><a href="/2020/qualification">Qualification entrant list</a></li>
-    <li><a href="https://lichess.org/forum/team-antichess-wc/acwc-2020-pairings-and-match-results">Pairings and match times forum post</a></li>
+    <li><a href="https://chronatog.com/2021/07/the-2021-atomic-world-championship-rules/">The rules</a></li>
+    <li><a href="https://lichess.org/team/atomic-wc">Lichess team</a></li>
   </ul>
 </p>
 {% endblock content %}
