@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <link rel="icon" href="/favicon.ico">
-  <title>{% block title %}{% endblock title %} | Atomic World Championship</title>
+  <title>{% block title %}{% endblock title %} | Atomar World Championship</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="stylesheet" href="https://bootswatch.com/4/darkly/bootstrap.min.css" crossorigin="anonymous">
   <link rel="stylesheet" href="/assets/styles/main.css">

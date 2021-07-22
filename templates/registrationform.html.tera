@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<div class="row justify-content md-center">This form is to register for the <strong>Atomic</strong> World Championship. For Atomar, please go <a href="https://atomarwc.chessvariants.training">here</a>.</div>
+<div class="row justify-content md-center">This form is to register for the <strong>Atomar</strong> World Championship. For Atomic, please go <a href="https://awc.chessvariants.training">here</a>.</div>
 <div class="row justify-content-md-center"><h3>Please carefully read <a href="https://chronatog.com/2021/07/the-2021-atomic-world-championship-rules/">THE RULES</a> before entering!</h3></div>
 <div class="row justify-content-md-center mt-3">
 <form method="POST" action="/register">
@@ -15,7 +15,7 @@
     <input type="checkbox" class="form-check-input" id="read-rules" required>
     <label class="form-check-label" for="read-rules">I have read and understood, and will comply to, the AWC rules.</label>
   </div>
-  <button type="submit" class="btn btn-primary mt-3 py-4" style="width:100%">Register for the ACWC</button>
+  <button type="submit" class="btn btn-primary mt-3 py-4" style="width:100%">Register for the Atomar WC</button>
 </form>
 </div>
 {% endblock content %}
