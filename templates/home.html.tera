@@ -20,7 +20,7 @@ function refreshCountdown() {
     var diff = Math.max(0, Math.ceil((open - (new Date())) / 1000));
     var seconds = diff % 60;
     var minutes = Math.floor((diff / 60) % 60);
-    var hours = Math.floor((diff / 3600) % 60);
+    var hours = Math.floor(diff / 3600);
     var hoursPad = hours.toString().padStart(2, "0");
     var minutesPad = minutes.toString().padStart(2, "0");
     var secondsPad = seconds.toString().padStart(2, "0");
