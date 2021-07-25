@@ -1,5 +1,4 @@
 oauth_client_id = "OAuth client ID here"
-oauth_client_secret = "OAuth client secret here"
 tournament_director = "tournament director Lichess ID (lowercase!) here"
 server_url = "server URL here (no trailing slash)"
 postgres_options = "host=localhost user=postgres dbname=acwc2019"

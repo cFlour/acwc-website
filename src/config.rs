@@ -5,7 +5,6 @@ use toml;
 #[derive(Deserialize)]
 pub struct Config {
     pub oauth_client_id: String,
-    pub oauth_client_secret: String,
     pub tournament_director: String,
     pub server_url: String,
     pub postgres_options: String,

@@ -4,13 +4,14 @@
 extern crate rocket;
 
 use chrono::prelude::*;
-use rand::Rng;
+use getrandom::getrandom;
 use rocket::http::{Cookies, Status};
 use rocket::request::Form;
 use rocket::response::Redirect;
 use rocket::State;
 use rocket_contrib::templates::Template;
 use serde_json::json;
+use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 
 mod config;
@@ -95,13 +96,17 @@ fn oauth_redirect(
     config: State<Config>,
     http_client: State<reqwest::Client>,
 ) -> Result<Result<Template, Status>, Box<dyn std::error::Error>> {
-    match session::pop_oauth_state(&mut cookies).map(|v| v == state) {
-        Some(true) => {
+    match (
+        session::pop_oauth_state(&mut cookies).map(|v| v == state),
+        session::pop_oauth_code_verifier(&mut cookies),
+    ) {
+        (Some(true), Some(code_verifier)) => {
+            println!("{}", code_verifier);
             let token = lichess::oauth_token_from_code(
                 &code,
                 &http_client,
                 &config.oauth_client_id,
-                &config.oauth_client_secret,
+                &code_verifier,
                 &format!("{}/oauth_redirect", config.server_url),
             )
             .unwrap();
@@ -117,6 +122,19 @@ fn oauth_redirect(
         }
         _ => Ok(Err(Status::BadRequest)),
     }
+}
+
+#[get("/oauth_redirect?<error>&<error_description>&<state>", rank = 2)]
+fn oauth_redirect_error(
+    mut cookies: Cookies<'_>,
+    error: String,
+    error_description: String,
+    state: String,
+) -> Redirect {
+    println!("An OAuth error: {} - {}", error, error_description);
+    session::pop_oauth_code_verifier(&mut cookies);
+    session::pop_oauth_state(&mut cookies);
+    Redirect::to("/")
 }
 
 #[derive(FromForm)]
@@ -150,25 +168,50 @@ fn register_needs_authentication() -> Redirect {
     Redirect::to(uri!(home))
 }
 
-fn random_oauth_state() -> Result<String, std::str::Utf8Error> {
-    let mut rng = rand::thread_rng();
-    let mut oauth_state_bytes: [u8; 12] = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-    for x in &mut oauth_state_bytes {
-        *x = (rng.gen::<u8>() % 26) + 97;
-    }
-    Ok(std::str::from_utf8(&oauth_state_bytes)?.to_string())
+const CHARS: &str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+pub fn random_string() -> Result<String, getrandom::Error> {
+    let mut buffer = vec![0u8; 64];
+    getrandom(&mut buffer)?;
+
+    let bytes = CHARS.as_bytes();
+    Ok(buffer
+        .iter()
+        .map(|b| {
+            let index = *b as usize % CHARS.len();
+            bytes[index] as char
+        })
+        .collect())
 }
 
 #[get("/auth")]
 fn auth(
     config: State<Config>,
-    cookies: Cookies<'_>,
+    mut cookies: Cookies<'_>,
 ) -> Result<Redirect, Box<dyn std::error::Error>> {
-    let oauth_state = random_oauth_state()?;
-    session::set_oauth_state_cookie(cookies, &oauth_state);
+    let oauth_state = random_string()?;
+    session::set_oauth_state_cookie(&mut cookies, &oauth_state);
 
-    let url = format!("https://oauth.lichess.org/oauth/authorize?response_type=code&client_id={}&redirect_uri={}/oauth_redirect&scope=&state={}",
-    config.oauth_client_id, config.server_url, oauth_state);
+    let code_verifier = random_string()?;
+    session::set_oauth_code_verifier(&mut cookies, &code_verifier);
+
+    let mut hasher = Sha256::default();
+    hasher.update(code_verifier.as_bytes());
+    let hash_result = base64::encode(hasher.finalize())
+        .replace("=", "")
+        .replace("+", "-")
+        .replace("/", "_");
+
+    let url = format!(
+        "https://lichess.org/oauth?response_type=code\
+        &client_id={}\
+        &redirect_uri={}%2Foauth_redirect\
+        &state={}&code_challenge_method=S256&code_challenge={}",
+        urlencoding::encode(&config.oauth_client_id),
+        urlencoding::encode(&config.server_url),
+        oauth_state,
+        &hash_result
+    );
 
     Ok(Redirect::to(url))
 }
@@ -264,6 +307,7 @@ fn main() {
                 home,
                 auth,
                 oauth_redirect,
+                oauth_redirect_error,
                 register,
                 register_needs_authentication,
                 admin,
