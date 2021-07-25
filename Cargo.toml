@@ -11,12 +11,15 @@ rocket = "0.4"
 chrono = "0.4"
 serde = { version = "1.0", features = ["derive"] }
 toml = "0.5"
-rand = "0.7.0"
 postgres = "0.16.0-rc.2"
 r2d2 = "0.8"
 r2d2_postgres = "0.15.0-rc.1"
 reqwest = "0.9.18"
 serde_json = "1.0"
+getrandom = "0.2"
+sha2 = "0.9"
+base64 = "0.13"
+urlencoding = "2.1"
 
 [dependencies.rocket_contrib]
 version = "0.4.2"
