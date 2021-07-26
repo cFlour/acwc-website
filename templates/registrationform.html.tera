@@ -3,7 +3,7 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<div class="row justify-content md-center">This form is to register for the <strong>Atomic</strong> World Championship. For Atomar, please go <a href="https://atomarwc.chessvariants.training">here</a>.</div>
+<p align="center">This form is to register for the <strong>Atomic</strong> World Championship. For Atomar, please go <a href="https://atomarwc.chessvariants.training">here</a>.</p>
 <div class="row justify-content-md-center"><h3>Please carefully read <a href="https://chronatog.com/2021/07/the-2021-atomic-world-championship-rules/">THE RULES</a> before entering!</h3></div>
 <div class="row justify-content-md-center mt-3">
 <form method="POST" action="/register">
