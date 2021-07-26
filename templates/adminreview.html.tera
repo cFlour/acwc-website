@@ -22,7 +22,7 @@
 <form method="POST">
 <div class="form-group">
   <label for="optional-comment">TD comment:</label>
-  <textarea class="form-control" id="optional-comment" name="optional-comment"></textarea>
+  <textarea class="form-control" id="optional-comment" name="optional-comment">{{ registration.td_comment }}</textarea>
   <div class="container">
   <div class="row justify-content-between mt-4">
   <div class="col">
