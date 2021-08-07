@@ -3,19 +3,46 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<p align="center">This form is to register for the <strong>Atomic</strong> World Championship. For Atomar, please go <a href="https://atomarwc.chessvariants.training">here</a>.</p>
-<div class="row justify-content-md-center"><h3>Please carefully read <a href="https://chronatog.com/2021/07/the-2021-atomic-world-championship-rules/">THE RULES</a> before entering!</h3></div>
+<div class="row justify-content-md-center"><h3>Please carefully read <a href="https://docs.google.com/document/d/1Bxmrg-4g6emhOeo-pGDBfDCAzQoMwpID8hl8OQ-QRAI/edit">THE RULES</a> before entering!</h3></div>
 <div class="row justify-content-md-center mt-3">
-<form method="POST" action="/register">
+<form method="POST" action="/register" id="regform">
   <div class="form-group">
     <label for="optional-comment">Optional comment for the tournament director:</label>
     <textarea id="optional-comment" name="optional-comment" class="form-control"></textarea>
   </div>
   <div class="form-check">
     <input type="checkbox" class="form-check-input" id="read-rules" required>
-    <label class="form-check-label" for="read-rules">I have read and understood, and will comply to, the AWC rules.</label>
+    <label class="form-check-label" for="read-rules">I have read and understood, and will comply to, the 3+ WC rules.</label>
   </div>
-  <button type="submit" class="btn btn-primary mt-3 py-4" style="width:100%">Register for the AWC</button>
+  <div>
+    <p>To verify that you have read and understood the rules, please answer the following quiz below.</p>
+    <div class="form-group">
+      Can I join the tournament on an account that isn't my main?
+      <label><input type="radio" name="q1" value="1"> Yes</label> - <label><input type="radio" name="q1" value="0"> No</label>
+    </div>
+    <div class="form-group">
+      Are the matches rated or casual?
+      <label><input type="radio" name="q2" value="1"> Rated</label> - <label><input type="radio" name="q2" value="0"> Casual</label>
+    </div>
+    <div class="form-group">
+      How many minutes do you have to wait after the scheduled match start time before your opponent forfeits?
+      <input type="number" name="q3">
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3 py-4" style="width:100%">Register for the 3+ WC</button>
 </form>
 </div>
+
+<script>
+document.getElementById("regform").addEventListener("submit", (e) => {
+  const q1a = document.querySelector('input[name="q1"]:checked')?.value;
+  const q2a = document.querySelector('input[name="q2"]:checked')?.value;
+  const q3a = document.querySelector('input[name="q3"]').value;
+  const answers = q1a + ',' + q2a + ',' + q3a;
+  if (btoa(answers) !== 'MCwxLDE1') {
+    e.preventDefault();
+    alert('Please make sure you answer the quiz correctly.');
+  }
+});
+</script>
 {% endblock content %}

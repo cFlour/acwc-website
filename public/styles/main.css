@@ -13,7 +13,7 @@ body {
 }
 
 .title:before {
-  content: 'Atomic World Championship';
+  content: 'Three-Check World Championship';
 }
 
 .navbar a {
@@ -22,6 +22,6 @@ body {
 
 @media screen and (max-width:460px) {
   .title:before {
-    content: 'Atomic WC';
+    content: '3+ WC';
   }
 }

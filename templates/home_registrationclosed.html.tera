@@ -3,12 +3,12 @@
 {% block title %}Home{% endblock title %}
 
 {% block content %}
-<h2 align="center">The AWC has started!</h2>
+<h2 align="center">The 3+ WC has started!</h2>
 <p>
   Useful links:
   <ul>
-    <li><a href="https://chronatog.com/2021/07/the-2021-atomic-world-championship-rules/">The rules</a></li>
-    <li><a href="https://lichess.org/team/atomic-wc">Lichess team</a></li>
+    <li><a href="https://lichess.org/team/3-world-championship">Lichess team</a></li>
+    <li><a href="https://docs.google.com/document/d/1Bxmrg-4g6emhOeo-pGDBfDCAzQoMwpID8hl8OQ-QRAI/edit">The rules</a></li>
   </ul>
 </p>
 {% endblock content %}
