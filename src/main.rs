@@ -6,7 +6,7 @@ extern crate rocket;
 use chrono::prelude::*;
 use getrandom::getrandom;
 use rocket::http::{Cookies, Status};
-use rocket::request::Form;
+use rocket::request::{LenientForm, Form};
 use rocket::response::Redirect;
 use rocket::State;
 use rocket_contrib::templates::Template;
@@ -145,7 +145,7 @@ struct OptionalCommentForm {
 
 #[post("/register", data = "<form>", rank = 1)]
 fn register(
-    form: Form<OptionalCommentForm>,
+    form: LenientForm<OptionalCommentForm>,
     session: Session,
     db_client: State<AcwcDbClient>,
     http_client: State<reqwest::Client>,
