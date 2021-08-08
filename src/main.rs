@@ -148,11 +148,13 @@ fn register(
     form: Form<OptionalCommentForm>,
     session: Session,
     db_client: State<AcwcDbClient>,
+    http_client: State<reqwest::Client>,
 ) -> Result<Redirect, Box<dyn std::error::Error>> {
     if registration_state() == 1 && db_client.find_registration(&session.lichess_id)?.is_none() {
+        lichess::get_ratings(&session.lichess_username, &http_client)?;
         db_client.insert_registration(&Registration {
             lichess_id: session.lichess_id,
-            lichess_username: session.lichess_username,
+            lichess_username: session.lichess_username.clone(),
             status: db::STATUS_PENDING,
             registrant_comment: form.comment.clone().unwrap_or_else(|| String::from("")),
             td_comment: String::from(""),

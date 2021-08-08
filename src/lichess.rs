@@ -46,3 +46,22 @@ pub fn oauth_token_from_code(
     let response: OAuthToken = http_client.execute(req)?.json()?;
     Ok(response)
 }
+
+pub fn get_ratings(user: &str, http_client: &Client) -> Result<(), Box<dyn std::error::Error>> {
+    let mut req = Request::new(
+        Method::GET,
+        Url::parse(&format!(
+            "https://lichess.org/api/user/{}/perf/threeCheck",
+            user
+        ))?,
+    );
+    let headers = req.headers_mut();
+    headers.insert(ACCEPT, "application/json".parse()?);
+    let response: String = http_client.execute(req)?.text()?;
+    println!("------------------------");
+    println!("{}", user);
+    println!("{}", response);
+    println!("------------------------");
+    Ok(())
+    // kind of ugly but I can read the logs anyway so :shrug:
+}
