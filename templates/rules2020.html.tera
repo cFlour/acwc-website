@@ -31,17 +31,17 @@
         <ol type="A">
             <li>Entry requirements
                 <ol type="1">
-                    <li>Your Lichess account must be created prior to March 1, 2020, 00:00 UTC.</li>
+                    <li>Your Lichess account must be created prior to March 1, 2021, 00:00 UTC.</li>
                     <li>
                         You must have played at least 100 rated Antichess games on Lichess prior to
-                        September 1, 2020, 00:00 UTC.
+                        September 1, 2021, 00:00 UTC.
                     </li>
                 </ol>
             </li>
             <li>Exceptions to these requirements can be made at TDs' discretion.</li>
             <li>Disqualifying elements
                 <ol type="1">
-                    <li>You have an account that was marked as engine after September 1, 2018. Booster marks will be handled on a case-by-case basis.</li>
+                    <li>You have an account that was marked as engine after September 1, 2019. Booster marks will be handled on a case-by-case basis.</li>
                     <li>Accounts that you own that got marked before September 1, 2018, will be reviewed on a
                         case-by-case basis but can be grounds for a disqualification.</li>
                     <li>
@@ -49,7 +49,7 @@
                         disqualification.
                     </li>
                     <li>
-                        You already entered the ACWC 2020 with another account. Your already-entered
+                        You already entered the ACWC 2021 with another account. Your already-entered
                         account will also be disqualified if you try to join with two accounts.
                     </li>
                     <li>
@@ -71,16 +71,16 @@
                 Candidates (double round-robin), and the Grand Final and Third Place Playoff (1v1).
             </li>
             <li>
-                <a href="https://lichess.org/@/arimakat">arimakat</a>, as 2019 world champion, is allowed to start in the Candidates upper pool.
+                <a href="https://lichess.org/@/PepsiNGaming">PepsiNGaming</a>, as 2020 world champion, is allowed to start in the Candidates upper pool.
             </li>
             <li>
-                <a href="https://lichess.org/@/Ogul1">Ogul1</a>, as 2019 runner-up, is allowed to start in the Candidates lower pool.
+                <a href="https://lichess.org/@/GrohochetGrom">GrohochetGrom</a>, as 2020 runner-up, is allowed to start in the Candidates lower pool.
             </li>
             <li>Qualification
                 <ol type="1">
                     <li>
-                        A Swiss tournament will be played between all entrants (except for arimakat
-                        and Ogul1). Each participant plays a 10-game match per round.
+                        A Swiss tournament will be played between all entrants (except for PepsiNGaming
+                        and GrohochetGrom). Each participant plays a 10-game match per round.
                         A won game gives 1 point, a tie (5-5) gives 0.5 points, and
                         a lost game gives 0 points. Once either player reaches 5.5 in a match, the
                         players are allowed to stop there.
@@ -90,8 +90,8 @@
                         65-128 players is 9 rounds, etc.
                     </li>
                     <li>
-                        Your seeding rating is equal to the average of your Antichess rating at September 1, 2020, 00:00 UTC
-                        and your highest Antichess rating between March 1, 2020, 00:00 UTC and September 1, 2020, 00:00 UTC.
+                        Your seeding rating is equal to the average of your Antichess rating at September 1, 2021, 00:00 UTC
+                        and your highest Antichess rating between March 1, 2021, 00:00 UTC and September 1, 2021, 00:00 UTC.
                     </li>
                     <li>
                         The 10 players that place highest in the Swiss (or more if arimakat or Ogul1 doesn't play) will proceed to the
@@ -145,7 +145,7 @@
                 <ol type="1">
                     <li>
                         A double round-robin tournament among the candidates will be played, where the "upper" and "lower" pools of players are determined by placement in the previous rounds.
-                        Arimakat starts in the upper pool and Ogul1 starts in the lower pool. If arimakat does not participate, then Ogul1 starts in the upper pool.
+                        PepsiNGaming starts in the upper pool and GrohochetGrom starts in the lower pool. If PepsiNGaming does not participate, then GrohochetGrom starts in the upper pool.
                     </li>
                     <li>
                         Each candidate plays a 10-game match against each other candidate in their pool. A won game gives 1 point, a drawn game gives 0.5 points, a lost game gives 0 points.
@@ -169,7 +169,7 @@
             </li>
             <li>Final Matches
                 <ol type="1">
-                    <li>The winners of each pool of the Candidates round will play a 12-game Grand Final to determine the 2020 Antichess World Champion and Second Place.</li>
+                    <li>The winners of each pool of the Candidates round will play a 12-game Grand Final to determine the 2021 Antichess World Champion and Second Place.</li>
                     <li>The second place players of each pool of the Candidates round will play a 12-game Third Place Playoff to determine Third Place and Fourth Place.</li>
                     <li>To win either match, the leading player must be ahead by two points. If there is no winner decided after 12 games, sets of 2 games will be added until there is a winner.</li>
                     <li>If, after 24 games, there is still no winner decided, the "must be ahead by two points" restriction gets dropped, and the time control becomes 3+0.</li>
@@ -193,7 +193,7 @@
             <li>
                 There will be a 1-week break between the Qualification and Knock-Out rounds, and between the Candidates round and Final Matches.
             </li>
-            <li>The pairings for the first matches will be published on Wednesday 23st September.</li>
+            <li>The pairings for the first matches will be published on Wednesday 22nd September.</li>
             <li>The pairings for all subsequent matches will be published on subsequent Wednesdays (or earlier if all players finish their matches earlier).</li>
             <li>All matches must be completed by the following Wednesday 00:00 UTC.</li>
         </ol>
